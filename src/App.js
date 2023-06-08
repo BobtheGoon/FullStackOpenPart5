@@ -14,12 +14,36 @@ const App = () => {
     )  
   }, [])
 
+  const handleLogin = (event) => {
+    event.preventDefault()
+    console.log('Loggin in with ', username, password)
+  }
+
   if (user === null) {
     return (
       <div>
         <h2>Log in to application</h2>
-        <form>
-        {/* //Login form */}
+        <form onSubmit={handleLogin}>
+          <div>
+            Username
+            <input 
+              type='text'
+              value={username}
+              name='Username'
+              onChange={({target}) => setUserName(target.value)}
+            />
+          </div>
+
+          <div>
+            Password
+            <input 
+              type='password'
+              value={password}
+              name='Password'
+              onChange={({target}) => setPassword(target.value)}
+            />
+          </div>
+          <button type='submit'>Log in</button>
         </form>
       </div>
     )
