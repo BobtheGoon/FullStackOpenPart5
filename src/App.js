@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react'
 import Blog from './components/Blog'
 import LoginForm from './components/LoginForm'
 import blogService from './services/blogs'
+import loginService from './services/loginService'
 
 const App = () => {
   const [blogs, setBlogs] = useState([])
@@ -15,9 +16,20 @@ const App = () => {
     )  
   }, [])
 
-  const handleLogin = (event) => {
+  const handleLogin = async (event) => {
     event.preventDefault()
-    console.log('Loggin in with ', username, password)
+    
+    try {
+      const user = await loginService.login({username, password})
+      console.log('success')
+
+      setUser(user)
+      setUserName('')
+      setPassword('')
+    }
+    catch (exception) {
+      console.log('failure')
+    }
   }
 
   if (user === null) return LoginForm({username, setUserName, password, setPassword, handleLogin})
