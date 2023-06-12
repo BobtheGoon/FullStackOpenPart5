@@ -1,0 +1,6 @@
+.blog_form {
+  display: flex;
+  width: 20rem;
+  flex-direction: column;
+  gap: 5px;
+}

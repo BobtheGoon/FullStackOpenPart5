@@ -1,6 +1,10 @@
 import { useState, useEffect } from 'react'
+import './styles.css'
+
 import Blog from './components/Blog'
 import LoginForm from './components/LoginForm'
+import BlogForm from './components/BlogForm'
+
 import blogService from './services/blogs'
 import loginService from './services/loginService'
 
@@ -48,15 +52,20 @@ const App = () => {
     console.log('logged out')
   }
 
+  const addBlog = (blogObject) => {
+    blogService.submitBlog(blogObject)
+  }
+
   if (user === null) return LoginForm({username, setUserName, password, setPassword, handleLogin})
 
   return (
     <div>
-      <h2>blogs</h2>
+      <h2>Blogs</h2>
       <div>
         {user.username} logged in
         <button onClick={handleLogout}>Log out</button>
       </div>
+      <BlogForm addBlog={addBlog}/>
       <p></p>
       {blogs.map(blog =>
         <Blog key={blog.id} blog={blog} />

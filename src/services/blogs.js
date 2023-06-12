@@ -6,5 +6,9 @@ const getAll = () => {
   return request.then(response => response.data)
 }
 
+const submitBlog = (blogObject) => {
+  console.log(blogObject)
+}
+
 // eslint-disable-next-line import/no-anonymous-default-export
-export default { getAll }
+export default { getAll, submitBlog }
