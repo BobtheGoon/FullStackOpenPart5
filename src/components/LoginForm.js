@@ -1,6 +1,9 @@
-const LoginForm = ({username, setUserName, password, setPassword, handleLogin}) => (
+import InfoMessage from "./InfoMessage"
+
+const LoginForm = ({username, setUserName, password, setPassword, handleLogin, infoMessage, infoStyle}) => (
   <div>
     <h2>Log in to application</h2>
+    <InfoMessage message={infoMessage} style={infoStyle} />
     <form onSubmit={handleLogin}>
       <div>
         Username
