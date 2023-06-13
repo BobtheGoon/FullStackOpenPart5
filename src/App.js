@@ -26,6 +26,7 @@ const App = () => {
     if (loggedUserJSON) {
       const user = JSON.parse(loggedUserJSON)
       setUser(user)
+      blogService.setToken(user.token)
     }
   }, [])
 
@@ -35,7 +36,9 @@ const App = () => {
     try {
       const user = await loginService.login({username, password})
       console.log('success')
+
       window.localStorage.setItem('loggedBlogAppUser', JSON.stringify(user))
+      blogService.setToken(user.token)
 
       setUser(user)
       setUserName('')
@@ -54,6 +57,7 @@ const App = () => {
 
   const addBlog = (blogObject) => {
     blogService.submitBlog(blogObject)
+    setBlogs(blogs.concat(blogObject))
   }
 
   if (user === null) return LoginForm({username, setUserName, password, setPassword, handleLogin})
