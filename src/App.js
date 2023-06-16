@@ -8,6 +8,7 @@ import InfoMessage from './components/InfoMessage'
 
 import blogService from './services/blogs'
 import loginService from './services/loginService'
+import Togglable from './components/Togglable'
 
 const App = () => {
   const [blogs, setBlogs] = useState([])
@@ -81,15 +82,6 @@ const App = () => {
     }, 5000)
   }
 
-  const loginFormVisible = () => {
-    const hideWhenVisible = {display: loginVisible ? 'none' : ''}
-    const showWhenVisible = {display: loginVisible ? '' : 'none'}
-    }
-
-  const toggleVisibility = () => {
-    setLoginVisible(!loginVisible)
-  }
-
   return (
     <div>
       <h2>Blogs</h2>
@@ -97,8 +89,9 @@ const App = () => {
 
       {!user &&
       <div>
-        <LoginForm username={username} setUserName={setUserName} password={password} setPassword={setPassword} handleLogin={handleLogin} infoMessage={infoMessage} infoStyle={infoStyle}/>
-        <button onClick={toggleVisibility}>Login</button>
+        <Togglable buttonLabel='Login'>
+          <LoginForm username={username} setUserName={setUserName} password={password} setPassword={setPassword} handleLogin={handleLogin} infoMessage={infoMessage} infoStyle={infoStyle}/>
+        </Togglable>
       </div>
       }
 
