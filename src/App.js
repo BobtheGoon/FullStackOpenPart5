@@ -16,6 +16,7 @@ const App = () => {
   const [user, setUser] = useState(null)
   const [infoMessage, setInfoMessage] = useState(null)
   const [infoStyle, setInfoStyle] = useState(null)
+  const [loginVisible, setLoginVisible] = useState(true)
 
   useEffect(() => {
     blogService.getAll().then(blogs =>
@@ -80,23 +81,40 @@ const App = () => {
     }, 5000)
   }
 
-  if (user === null) {
-    return LoginForm({username, setUserName, password, setPassword, handleLogin, infoMessage, infoStyle})
+  const loginFormVisible = () => {
+    const hideWhenVisible = {display: loginVisible ? 'none' : ''}
+    const showWhenVisible = {display: loginVisible ? '' : 'none'}
+    }
+
+  const toggleVisibility = () => {
+    setLoginVisible(!loginVisible)
   }
 
   return (
     <div>
       <h2>Blogs</h2>
       <InfoMessage message={infoMessage} style={infoStyle} />
+
+      {!user &&
       <div>
-        {user.username} logged in
-        <button onClick={handleLogout}>Log out</button>
+        <LoginForm username={username} setUserName={setUserName} password={password} setPassword={setPassword} handleLogin={handleLogin} infoMessage={infoMessage} infoStyle={infoStyle}/>
+        <button onClick={toggleVisibility}>Login</button>
       </div>
-      <BlogForm addBlog={addBlog}/>
-      <p></p>
-      {blogs.map(blog =>
-        <Blog key={blog.id} blog={blog} />
-      )}
+      }
+
+      {user &&
+      <div>
+        <div>
+          {user.username} logged in
+          <button onClick={handleLogout}>Log out</button>
+        </div>
+        <BlogForm addBlog={addBlog}/>
+        <p></p>
+        {blogs.map(blog =>
+          <Blog key={blog.id} blog={blog} />
+        )}
+      </div>
+      }
     </div>
   )
 }
