@@ -5,6 +5,22 @@
   gap: 5px;
 }
 
+.blog {
+  margin: 1rem 0 1rem 0;
+  width: 30%;
+  border: solid black 2px;
+}
+
+.blog_likes {
+  display: flex;
+  flex-direction: row;
+  gap: 1rem;
+}
+
+.blog_likes > button {
+  align-self: center;
+}
+
 .error {
   color: red;
 }
