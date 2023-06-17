@@ -19,26 +19,11 @@ const App = () => {
   const [infoStyle, setInfoStyle] = useState(null)
   const [loginVisible, setLoginVisible] = useState(true)
 
-  const addBlog = (blogObject) => {
-    blogService.submitBlog(blogObject)
-
-    //Add new blog to blog state
-    setBlogs(blogs.concat(blogObject))
-
-    setInfoMessage(`Added new blog ${blogObject.title}!`)
-    setInfoStyle('success')
-    
-    setTimeout(() => {
-      setInfoMessage(null)
-      setInfoStyle(null)
-    }, 5000)
-  }
-
   useEffect(() => {
     blogService.getAll().then(blogs =>
       setBlogs( blogs )
     )  
-  }, [addBlog])
+  }, [])
 
   useEffect(() => {
     const loggedUserJSON = window.localStorage.getItem('loggedBlogAppUser')
@@ -82,6 +67,23 @@ const App = () => {
     console.log('logged out')
   }
 
+  const addBlog = (blogObject) => {
+    blogService.submitBlog(blogObject)
+    
+    //Add current user as user that added blog
+    blogObject.user = user
+
+    //Add new blog to blog state
+    setBlogs(blogs.concat(blogObject))
+
+    setInfoMessage(`Added new blog ${blogObject.title}!`)
+    setInfoStyle('success')
+    
+    setTimeout(() => {
+      setInfoMessage(null)
+      setInfoStyle(null)
+    }, 5000)
+  }
 
   return (
     <div>
