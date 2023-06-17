@@ -11,6 +11,10 @@
   border: solid black 2px;
 }
 
+.blog > * {
+  margin: 0.5rem 0 0.5rem 0.5rem;
+}
+
 .blog_likes {
   display: flex;
   flex-direction: row;
