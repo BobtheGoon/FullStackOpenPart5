@@ -18,6 +18,8 @@ const App = () => {
   const [infoMessage, setInfoMessage] = useState(null)
   const [infoStyle, setInfoStyle] = useState(null)
   const [loginVisible, setLoginVisible] = useState(true)
+  
+  const blogFormRef = useRef()
 
   useEffect(() => {
     blogService.getAll().then(blogs =>
@@ -98,7 +100,11 @@ const App = () => {
     }, 5000)
   }
 
-  const blogFormRef = useRef()
+  const sortBlogs = (a, b) => {
+    let order
+    Number(a.props.blog.likes) > Number(b.props.blog.likes) ? order = 0 : order = 1
+    return order
+  }
 
   return (
     <div>
@@ -122,9 +128,10 @@ const App = () => {
         <Togglable buttonLabel='Add blog' ref={blogFormRef}>
           <BlogForm addBlog={addBlog}/>
         </Togglable>
-        {blogs.map(blog =>
-          <Blog key={blog.id} blog={blog} addLike={addLike} />
-        )}
+        {blogs
+        .map(blog =>
+          <Blog key={blog.id} blog={blog} addLike={addLike} />)
+        .sort(sortBlogs)}
       </div>
       }
     </div>
