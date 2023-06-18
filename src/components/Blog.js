@@ -25,16 +25,16 @@ const Blog = ({blog}) => {
           <p>{blog.url}</p>
           
           <div className='blog_likes'>
-
+            
             {blog.likes === 0 &&
             <p>Be the first to like this post!</p>
             }
-            
+
             {blog.likes > 0 &&
             <p>Likes {blog.likes}</p>
             }
-            <button onClick={() => console.log('liked')}>Like</button>
 
+            <button onClick={() => console.log('liked')}>Like</button>
           </div>
 
           <p>{blog.user.username}</p>

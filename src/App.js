@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import './styles.css'
 
 import Blog from './components/Blog'
@@ -68,6 +68,7 @@ const App = () => {
   }
 
   const addBlog = (blogObject) => {
+    blogFormRef.current.toggleVisibility()
     blogService.submitBlog(blogObject)
     
     //Add current user as user that added blog
@@ -84,6 +85,8 @@ const App = () => {
       setInfoStyle(null)
     }, 5000)
   }
+
+  const blogFormRef = useRef()
 
   return (
     <div>
@@ -104,7 +107,7 @@ const App = () => {
           {user.username} logged in
           <button onClick={handleLogout}>Log out</button>
         </div>
-        <Togglable buttonLabel='Add blog'>
+        <Togglable buttonLabel='Add blog' ref={blogFormRef}>
           <BlogForm addBlog={addBlog}/>
         </Togglable>
         {blogs.map(blog =>

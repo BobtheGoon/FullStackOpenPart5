@@ -21,5 +21,16 @@ const submitBlog = async blogObject => {
   return response.data
 }
 
+const addLike = async blogObject => {
+  const config = {
+    headers: {Authorization: token},
+  }
+
+  const blogUrl = baseUrl + `${blogObject.id}`
+
+  const response = await axios.post(blogUrl, blogObject, config)
+  return response.data
+}
+
 // eslint-disable-next-line import/no-anonymous-default-export
-export default { getAll, submitBlog, setToken }
+export default { getAll, submitBlog, addLike, setToken }
