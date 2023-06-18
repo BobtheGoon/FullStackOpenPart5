@@ -11,6 +11,10 @@ const Blog = ({blog, addLike, removeBlog}) => {
     addLike(blog)
   }
 
+  const deleteBlog = () => {
+    removeBlog(blog)
+  }
+
   return (
     <div className='blog'>
       {!showAll &&
@@ -45,7 +49,9 @@ const Blog = ({blog, addLike, removeBlog}) => {
 
         </div>
       )}
-      <button onClick={removeBlog}>Remove</button>
+      
+      {/* TODO for 5.11 show remove button only if logged in user owns the blog */}
+      <button onClick={deleteBlog}>Remove</button>
     </div>
   )
   }

@@ -71,8 +71,10 @@ const App = () => {
 
   const addBlog = (blogObject) => {
     blogFormRef.current.toggleVisibility()
-    blogService.submitBlog(blogObject)
+    const response = blogService.submitBlog(blogObject)
     
+    //TODO, add check for response status
+
     //Add current user as user that added blog
     blogObject.user = user
 
@@ -89,7 +91,9 @@ const App = () => {
   }
 
   const addLike = (blogObject) => {
-    blogService.addLike(blogObject)
+    const response = blogService.addLike(blogObject)
+
+    //TODO, add check for response status
 
     setInfoMessage(`You liked ${blogObject.title}!`)
     setInfoStyle('success')
@@ -100,8 +104,21 @@ const App = () => {
     }, 5000)
   }
 
-  const removeBlog = () => {
-    console.log('removed')
+  const removeBlog = (blogObject) => {
+    //Confirm deletion
+    if (!window.confirm(`Remove blog ${blogObject.title} by ${blogObject.author}`)) return
+
+    const response = blogService.deleteBlog(blogObject)
+
+    //TODO, add check for response status
+    
+    setInfoMessage(`${blogObject.title} removed.`)
+    setInfoStyle('success')
+    
+    setTimeout(() => {
+      setInfoMessage(null)
+      setInfoStyle(null)
+    }, 5000)
   }
 
   const sortBlogsByLikes = (a, b) => {

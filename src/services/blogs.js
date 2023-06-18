@@ -12,7 +12,7 @@ const getAll = () => {
   return request.then(response => response.data)
 }
 
-const submitBlog = async blogObject => {
+const submitBlog = async (blogObject) => {
   const config = {
     headers: {Authorization: token},
   }
@@ -21,7 +21,7 @@ const submitBlog = async blogObject => {
   return response.data
 }
 
-const addLike = async blogObject => {
+const addLike = async (blogObject) => {
   const config = {
     headers: {Authorization: token},
   }
@@ -33,5 +33,15 @@ const addLike = async blogObject => {
   return response.data
 }
 
+const deleteBlog = async (blogObject) => {
+  const config = {
+    headers: {Authorization: token},
+  }
+
+  const blogUrl = baseUrl + `/${blogObject._id}`
+  const response = await axios.delete(blogUrl, config)
+  return response.data
+}
+
 // eslint-disable-next-line import/no-anonymous-default-export
-export default { getAll, submitBlog, addLike, setToken }
+export default { getAll, submitBlog, addLike, deleteBlog, setToken }
