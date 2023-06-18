@@ -1,10 +1,14 @@
 import { useState } from "react"
 
-const Blog = ({blog}) => {
+const Blog = ({blog, addLike}) => {
   const [showAll, setShowAll] = useState(false)
 
   const toggleShowAll = () => {
     setShowAll(!showAll)
+  }
+
+  const likeBlog = () => {
+    addLike(blog)
   }
 
   return (
@@ -25,7 +29,7 @@ const Blog = ({blog}) => {
           <p>{blog.url}</p>
           
           <div className='blog_likes'>
-            
+
             {blog.likes === 0 &&
             <p>Be the first to like this post!</p>
             }
@@ -34,7 +38,7 @@ const Blog = ({blog}) => {
             <p>Likes {blog.likes}</p>
             }
 
-            <button onClick={() => console.log('liked')}>Like</button>
+            <button onClick={likeBlog}>Like</button>
           </div>
 
           <p>{blog.user.username}</p>

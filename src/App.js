@@ -86,6 +86,18 @@ const App = () => {
     }, 5000)
   }
 
+  const addLike = (blogObject) => {
+    blogService.addLike(blogObject)
+
+    setInfoMessage(`You liked ${blogObject.title}!`)
+    setInfoStyle('success')
+    
+    setTimeout(() => {
+      setInfoMessage(null)
+      setInfoStyle(null)
+    }, 5000)
+  }
+
   const blogFormRef = useRef()
 
   return (
@@ -111,7 +123,7 @@ const App = () => {
           <BlogForm addBlog={addBlog}/>
         </Togglable>
         {blogs.map(blog =>
-          <Blog key={blog.id} blog={blog} />
+          <Blog key={blog.id} blog={blog} addLike={addLike} />
         )}
       </div>
       }
