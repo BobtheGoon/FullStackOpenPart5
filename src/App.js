@@ -100,7 +100,7 @@ const App = () => {
     }, 5000)
   }
 
-  const sortBlogs = (a, b) => {
+  const sortBlogsByLikes = (a, b) => {
     let order
     Number(a.props.blog.likes) > Number(b.props.blog.likes) ? order = 0 : order = 1
     return order
@@ -131,7 +131,7 @@ const App = () => {
         {blogs
         .map(blog =>
           <Blog key={blog.id} blog={blog} addLike={addLike} />)
-        .sort(sortBlogs)}
+        .sort(sortBlogsByLikes)}
       </div>
       }
     </div>
