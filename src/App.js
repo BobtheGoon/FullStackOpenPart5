@@ -100,6 +100,10 @@ const App = () => {
     }, 5000)
   }
 
+  const removeBlog = () => {
+    console.log('removed')
+  }
+
   const sortBlogsByLikes = (a, b) => {
     let order
     Number(a.props.blog.likes) > Number(b.props.blog.likes) ? order = 0 : order = 1
@@ -130,7 +134,7 @@ const App = () => {
         </Togglable>
         {blogs
         .map(blog =>
-          <Blog key={blog.id} blog={blog} addLike={addLike} />)
+          <Blog key={blog.id} blog={blog} addLike={addLike} removeBlog={removeBlog} />)
         .sort(sortBlogsByLikes)}
       </div>
       }
