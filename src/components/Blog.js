@@ -1,6 +1,6 @@
 import { useState } from "react"
 
-const Blog = ({blog, addLike, removeBlog}) => {
+const Blog = ({blog, addLike, showRemove, removeBlog}) => {
   const [showAll, setShowAll] = useState(false)
 
   const toggleShowAll = () => {
@@ -18,7 +18,7 @@ const Blog = ({blog, addLike, removeBlog}) => {
   return (
     <div className='blog'>
       {!showAll &&
-      <div>
+      <div className="blog_head">
         <h3>{blog.title}</h3>
         <p>{blog.author}</p>
         <button onClick={toggleShowAll}>Show more</button>
@@ -27,12 +27,14 @@ const Blog = ({blog, addLike, removeBlog}) => {
 
       {showAll && (
         <div>
-          <h3>{blog.title}</h3>
-          <p>{blog.author}</p>
+          <div className="blog_head">
+            <h3>{blog.title}</h3>
+            <p>{blog.author}</p>
+            <button onClick={toggleShowAll}>Hide</button>
+          </div>
           <p>{blog.url}</p>
           
           <div className='blog_likes'>
-
             {blog.likes === 0 &&
             <p>Be the first to like this post!</p>
             }
@@ -40,18 +42,17 @@ const Blog = ({blog, addLike, removeBlog}) => {
             {blog.likes > 0 &&
             <p>Likes {blog.likes}</p>
             }
-
             <button onClick={likeBlog}>Like</button>
           </div>
 
           <p>{blog.user.username}</p>
-          <button onClick={toggleShowAll}>Hide</button>
 
+          {showRemove === true &&
+          <button onClick={deleteBlog}>Remove</button>
+          }
         </div>
       )}
       
-      {/* TODO for 5.11 show remove button only if logged in user owns the blog */}
-      <button onClick={deleteBlog}>Remove</button>
     </div>
   )
   }

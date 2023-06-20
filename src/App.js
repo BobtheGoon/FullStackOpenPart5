@@ -126,10 +126,6 @@ const App = () => {
     return order
   }
 
-  const notYourBlog = () => {
-    console.log('not yours!')
-  }
-
   return (
     <div>
       <h2>Blogs</h2>
@@ -160,10 +156,10 @@ const App = () => {
         .map(blog => {
           console.log(blog.user.id, user)
           if (blog.user.username === user.username) {
-            return <Blog key={blog.id} blog={blog} addLike={addLike} removeBlog={removeBlog} />
+            return <Blog key={blog.id} blog={blog} addLike={addLike} showRemove={true} removeBlog={removeBlog} />
           }
           else {
-            return <Blog key={blog.id} blog={blog} addLike={addLike} removeBlog={notYourBlog} />
+            return <Blog key={blog.id} blog={blog} addLike={addLike} showRemove={false} />
           }
         })
         .sort(sortBlogsByLikes)}
