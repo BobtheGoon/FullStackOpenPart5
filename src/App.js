@@ -17,15 +17,15 @@ const App = () => {
   const [user, setUser] = useState(null)
   const [infoMessage, setInfoMessage] = useState(null)
   const [infoStyle, setInfoStyle] = useState(null)
-  
+
   const blogFormRef = useRef()
 
   useEffect(() => {
     blogService.getAll().then(blogs =>
       setBlogs( blogs )
-    )  
+    )
   }, [])
-  
+
   useEffect(() => {
     const loggedUserJSON = window.localStorage.getItem('loggedBlogAppUser')
 
@@ -38,9 +38,9 @@ const App = () => {
 
   const handleLogin = async (event) => {
     event.preventDefault()
-    
+
     try {
-      const user = await loginService.login({username, password})
+      const user = await loginService.login({ username, password })
       console.log('success')
 
       window.localStorage.setItem('loggedBlogAppUser', JSON.stringify(user))
@@ -71,7 +71,7 @@ const App = () => {
   const addBlog = (blogObject) => {
     blogFormRef.current.toggleVisibility()
     const response = blogService.submitBlog(blogObject)
-    
+
     //TODO, add check for response status
 
     //Add current user as user that added blog
@@ -82,7 +82,7 @@ const App = () => {
 
     setInfoMessage(`Added new blog ${blogObject.title}!`)
     setInfoStyle('success')
-    
+
     setTimeout(() => {
       setInfoMessage(null)
       setInfoStyle(null)
@@ -96,7 +96,7 @@ const App = () => {
 
     setInfoMessage(`You liked ${blogObject.title}!`)
     setInfoStyle('success')
-    
+
     setTimeout(() => {
       setInfoMessage(null)
       setInfoStyle(null)
@@ -114,10 +114,10 @@ const App = () => {
     setBlogs(newBlogs)
 
     //TODO, add check for response status
-    
+
     setInfoMessage(`${blogObject.title} removed.`)
     setInfoStyle('success')
-    
+
     setTimeout(() => {
       setInfoMessage(null)
       setInfoStyle(null)
@@ -156,16 +156,16 @@ const App = () => {
         </Togglable>
 
         {blogs
-        .map(blog => {
-          if (blog.user.username === user.username) {
-            return <Blog blog={blog} addLike={addLike} showRemove={true} removeBlog={removeBlog} />
-          }
+          .map(blog => {
+            if (blog.user.username === user.username) {
+              return <Blog blog={blog} addLike={addLike} showRemove={true} removeBlog={removeBlog} />
+            }
 
-          else {
-            return <Blog blog={blog} addLike={addLike} showRemove={false} />
-          }
-        })
-        .sort(sortBlogsByLikes)}
+            else {
+              return <Blog blog={blog} addLike={addLike} showRemove={false} />
+            }
+          })
+          .sort(sortBlogsByLikes)}
 
       </div>
       }

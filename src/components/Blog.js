@@ -1,6 +1,6 @@
-import { useState } from "react"
+import { useState } from 'react'
 
-const Blog = ({blog, addLike, showRemove, removeBlog}) => {
+const Blog = ({ blog, addLike, showRemove, removeBlog }) => {
   const [showAll, setShowAll] = useState(false)
 
   const toggleShowAll = () => {
@@ -18,7 +18,7 @@ const Blog = ({blog, addLike, showRemove, removeBlog}) => {
 
   return (
     <div className='blog'>
-      
+
       {!showAll &&
       <div className="blog_head">
         <h3>{blog.title}</h3>
@@ -35,7 +35,7 @@ const Blog = ({blog, addLike, showRemove, removeBlog}) => {
             <button onClick={toggleShowAll}>Hide</button>
           </div>
           <p>{blog.url}</p>
-          
+
           <div className='blog_likes'>
             {blog.likes === 0 &&
             <p>Be the first to like this post!</p>
@@ -54,9 +54,9 @@ const Blog = ({blog, addLike, showRemove, removeBlog}) => {
           }
         </div>
       )}
-      
+
     </div>
   )
-  }
+}
 
 export default Blog

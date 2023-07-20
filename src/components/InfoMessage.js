@@ -1,4 +1,4 @@
-const InfoMessage = ({message, style}) => {
+const InfoMessage = ({ message, style }) => {
   if (message === null) return null
 
   return (

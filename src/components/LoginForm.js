@@ -1,26 +1,26 @@
-import InfoMessage from "./InfoMessage"
+import InfoMessage from './InfoMessage'
 
-const LoginForm = ({username, setUserName, password, setPassword, handleLogin, infoMessage, infoStyle}) => (
+const LoginForm = ({ username, setUserName, password, setPassword, handleLogin, infoMessage, infoStyle }) => (
   <div>
     <h2>Log in to application</h2>
     <form onSubmit={handleLogin}>
       <div>
         Username
-        <input 
+        <input
           type='text'
           value={username}
           name='Username'
-          onChange={({target}) => setUserName(target.value)}
+          onChange={({ target }) => setUserName(target.value)}
         />
       </div>
 
       <div>
         Password
-        <input 
+        <input
           type='password'
           value={password}
           name='Password'
-          onChange={({target}) => setPassword(target.value)}
+          onChange={({ target }) => setPassword(target.value)}
         />
       </div>
       <button type='submit'>Log in</button>
