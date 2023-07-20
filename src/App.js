@@ -25,7 +25,7 @@ const App = () => {
       setBlogs( blogs )
     )  
   }, [])
-
+  
   useEffect(() => {
     const loggedUserJSON = window.localStorage.getItem('loggedBlogAppUser')
 
@@ -109,6 +109,10 @@ const App = () => {
 
     const response = blogService.deleteBlog(blogObject)
 
+    //Remove blog from blog state
+    const newBlogs = blogs.filter((blog) => blog._id !== blogObject._id)
+    setBlogs(newBlogs)
+
     //TODO, add check for response status
     
     setInfoMessage(`${blogObject.title} removed.`)
@@ -128,6 +132,7 @@ const App = () => {
 
   return (
     <div>
+
       <h2>Blogs</h2>
       <InfoMessage message={infoMessage} style={infoStyle} />
 
@@ -141,7 +146,6 @@ const App = () => {
 
       {user &&
       <div>
-        
         <div>
           {user.username} logged in
           <button onClick={handleLogout}>Log out</button>
@@ -151,21 +155,21 @@ const App = () => {
           <BlogForm addBlog={addBlog}/>
         </Togglable>
 
-        
         {blogs
         .map(blog => {
-          console.log(blog.user.id, user)
           if (blog.user.username === user.username) {
-            return <Blog key={blog.id} blog={blog} addLike={addLike} showRemove={true} removeBlog={removeBlog} />
+            return <Blog blog={blog} addLike={addLike} showRemove={true} removeBlog={removeBlog} />
           }
+
           else {
-            return <Blog key={blog.id} blog={blog} addLike={addLike} showRemove={false} />
+            return <Blog blog={blog} addLike={addLike} showRemove={false} />
           }
         })
         .sort(sortBlogsByLikes)}
 
       </div>
       }
+
     </div>
   )
 }

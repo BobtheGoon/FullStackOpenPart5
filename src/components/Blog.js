@@ -15,8 +15,10 @@ const Blog = ({blog, addLike, showRemove, removeBlog}) => {
     removeBlog(blog)
   }
 
+
   return (
     <div className='blog'>
+      
       {!showAll &&
       <div className="blog_head">
         <h3>{blog.title}</h3>
