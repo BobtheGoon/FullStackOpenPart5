@@ -158,11 +158,11 @@ const App = () => {
         {blogs
           .map(blog => {
             if (blog.user.username === user.username) {
-              return <Blog blog={blog} addLike={addLike} showRemove={true} removeBlog={removeBlog} />
+              return <Blog key={blog._id} blog={blog} addLike={addLike} showRemove={true} removeBlog={removeBlog} />
             }
 
             else {
-              return <Blog blog={blog} addLike={addLike} showRemove={false} />
+              return <Blog key={blog._id} blog={blog} addLike={addLike} showRemove={false} />
             }
           })
           .sort(sortBlogsByLikes)}
