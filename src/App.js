@@ -70,7 +70,7 @@ const App = () => {
 
   const addBlog = (blogObject) => {
     blogFormRef.current.toggleVisibility()
-    const response = blogService.submitBlog(blogObject)
+    blogService.submitBlog(blogObject)
 
     //TODO, add check for response status
 
@@ -90,7 +90,7 @@ const App = () => {
   }
 
   const addLike = (blogObject) => {
-    const response = blogService.addLike(blogObject)
+    blogService.addLike(blogObject)
 
     //TODO, add check for response status
 
@@ -107,7 +107,7 @@ const App = () => {
     //Confirm deletion
     if (!window.confirm(`Remove blog ${blogObject.title} by ${blogObject.author}`)) return
 
-    const response = blogService.deleteBlog(blogObject)
+    blogService.deleteBlog(blogObject)
 
     //Remove blog from blog state
     const newBlogs = blogs.filter((blog) => blog._id !== blogObject._id)
