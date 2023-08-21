@@ -12,23 +12,35 @@ describe('Blog app', function() {
     cy.visit('http://localhost:3000')
   })
 
-  it('Login form is shown', function() {
-    cy.contains('Login')
+  describe('Login', function() {
+    it('Login form is shown', function() {
+      cy.contains('Login')
+    })
+
+    it('Logs the user in with correct creds', function() {
+      cy.contains('Login').click()
+      cy.get('#username_input').type('GobtheBoon')
+      cy.get('#password_input').type('bananaynay')
+      cy.get('#login_button').click()
+      cy.contains('GobtheBoon logged in')
+    })
+
+    it('Fails to log in with wrong creds, and displays error', function() {
+      cy.contains('Login').click()
+      cy.get('#username_input').type('GobtheBuun')
+      cy.get('#password_input').type('banana')
+      cy.get('#login_button').click()
+      cy.contains('Wrong username or password')
+    })
   })
 
-  it('Logs the user in with correct creds', function() {
-    cy.contains('Login').click()
-    cy.get('#username_input').type('GobtheBoon')
-    cy.get('#password_input').type('bananaynay')
-    cy.get('#login_button').click()
-    cy.contains('GobtheBoon logged in')
-  })
+  describe('Blogs', function() {
+    beforeEach(function() {
+      cy.login({username: 'GobtheBoon', password: 'bananaynay'})
+    })
 
-  it('Fails to log in with wrong creds, and displays error', function() {
-    cy.contains('Login').click()
-    cy.get('#username_input').type('GobtheBuun')
-    cy.get('#password_input').type('banana')
-    cy.get('#login_button').click()
-    cy.contains('Wrong username or password')
+    it.only('Creates a blog', function() {
+      cy.contains('Add blog').click()
+    })
   })
 })
