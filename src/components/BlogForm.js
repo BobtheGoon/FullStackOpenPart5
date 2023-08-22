@@ -39,7 +39,7 @@ const BlogForm = ({ addBlog }) => {
         <input value={author} id='author' onChange={handleAuthorChange}/>
         <label htmlFor='url'>URL</label>
         <input value={url} id='url' onChange={handleUrlChange}/>
-        <button type='submit'>Create</button>
+        <button type='submit' id='submit_blog_btn'>Create</button>
       </form>
     </div>
   )
