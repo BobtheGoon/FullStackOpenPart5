@@ -1,3 +1,9 @@
+const BLOG = {
+  title: 'TestBlog1',
+  author: 'Tester',
+  blog_url: 'www.test.com'
+}
+
 describe('Blog app', function() {
   beforeEach(function() {
     cy.request('POST', 'http://localhost:3003/api/test/reset')
@@ -9,7 +15,7 @@ describe('Blog app', function() {
     }
     cy.request('POST', 'http://localhost:3003/api/users/', user)
 
-    cy.visit('http://localhost:3000')
+    cy.visit('')
   })
 
   describe('Login', function() {
@@ -39,14 +45,21 @@ describe('Blog app', function() {
       cy.login({username: 'GobtheBoon', password: 'bananaynay'})
     })
 
-    it.only('Creates a blog', function() {
+    it('Can create a blog', function() {
       cy.contains('Add blog').click()
-      cy.get('#title').type('TestBlog1')
-      cy.get('#author').type('Tester')
-      cy.get('#url').type('www.test.com')
+      cy.get('#title').type(BLOG.title)
+      cy.get('#author').type(BLOG.author)
+      cy.get('#url').type(BLOG.blog_url)
       cy.get('#submit_blog_btn').click()
 
       cy.contains('TestBlog1')
+    })
+
+    it('Can like a blog', function() {
+      cy.addBlog(BLOG)
+      cy.contains('Show more').click()
+      cy.contains('Like').click()
+      cy.contains('Likes 1')
     })
   })
 })
