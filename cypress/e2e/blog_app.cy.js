@@ -4,6 +4,18 @@ const BLOG = {
   blog_url: 'www.test.com'
 }
 
+const BLOG2 = {
+  title: 'TestBlog2',
+  author: 'Tester',
+  blog_url: 'www.test.com'
+}
+
+const BLOG3 = {
+  title: 'TestBlog3',
+  author: 'Tester',
+  blog_url: 'www.test.com'
+}
+
 const USER2 = {
   name:'Bob',
   username:'BobtheGoon',
@@ -81,6 +93,12 @@ describe('Blog app', function() {
       cy.login(USER2)
       cy.contains('Show more').click()
       cy.contains('Remove').should('not.exist')
+    })
+
+    it.only('Likes are arranged by like count', function() {
+      cy.addBlog(BLOG)
+      cy.addBlog(BLOG2)
+      cy.addBlog(BLOG3)
     })
   })
 })
