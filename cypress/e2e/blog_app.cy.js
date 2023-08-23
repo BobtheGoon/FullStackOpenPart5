@@ -61,5 +61,12 @@ describe('Blog app', function() {
       cy.contains('Like').click()
       cy.contains('Likes 1')
     })
+
+    it.only('Can delete blog if owned', function() {
+      cy.addBlog(BLOG)
+      cy.contains('Show more').click()
+      cy.contains('Remove').click()
+      cy.contains(`${BLOG.title} removed`)
+    })
   })
 })
