@@ -4,16 +4,22 @@ const BLOG = {
   blog_url: 'www.test.com'
 }
 
+const USER2 = {
+  name:'Bob',
+  username:'BobtheGoon',
+  password:'apple'
+}
+
 describe('Blog app', function() {
   beforeEach(function() {
-    cy.request('POST', 'http://localhost:3003/api/test/reset')
+    cy.request('POST', `${Cypress.env('BACKEND')}/test/reset`)
     
     const user = {
       name: 'Gob',
       username: 'GobtheBoon',
       password: 'bananaynay'
     }
-    cy.request('POST', 'http://localhost:3003/api/users/', user)
+    cy.request('POST', `${Cypress.env('BACKEND')}/users/`, user)
 
     cy.visit('')
   })
@@ -62,11 +68,19 @@ describe('Blog app', function() {
       cy.contains('Likes 1')
     })
 
-    it.only('Can delete blog if owned', function() {
+    it('Can delete blog if owned', function() {
       cy.addBlog(BLOG)
       cy.contains('Show more').click()
       cy.contains('Remove').click()
       cy.contains(`${BLOG.title} removed`)
+    })
+
+    it('User can only delete blogs that they own', function() {
+      cy.addBlog(BLOG)
+      cy.addUser(USER2)
+      cy.login(USER2)
+      cy.contains('Show more').click()
+      cy.contains('Remove').should('not.exist')
     })
   })
 })
